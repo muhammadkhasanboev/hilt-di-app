@@ -11,6 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import uz.muhammad.hilt_di_app.BuildConfig
+import uz.muhammad.hilt_di_app.data.remote.api.ApiService
 import javax.inject.Singleton
 
 
@@ -38,8 +39,12 @@ object NetworkModule {
     @Provides @Singleton
     fun provideRetrofit(client: OkHttpClient, moshi: Moshi): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://talkmate.uz")
+            .baseUrl("https://dummyjson.com")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
             .build()
+
+    @Provides @Singleton
+    fun provideApiService(retrofit: Retrofit): ApiService =
+        retrofit.create(ApiService::class.java)
 }
