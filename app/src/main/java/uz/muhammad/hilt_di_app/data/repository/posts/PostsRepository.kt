@@ -2,8 +2,11 @@ package uz.muhammad.hilt_di_app.data.repository.posts
 
 import uz.muhammad.hilt_di_app.data.remote.api.ApiService
 import uz.muhammad.hilt_di_app.data.remote.dto.posts.Posts
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class PostsRepository(private val api: ApiService): PostsRepositoryInterface {
+@Singleton
+class PostsRepository @Inject constructor(private val api: ApiService): PostsRepositoryInterface {
     override suspend fun getPosts(): Result<Posts> {
         return try {
             val response = api.getPosts()
