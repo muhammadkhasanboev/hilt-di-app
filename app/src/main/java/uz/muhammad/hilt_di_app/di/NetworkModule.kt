@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.logging.HttpLoggingInterceptor
+import uz.muhammad.hilt_di_app.BuildConfig
 import javax.inject.Singleton
 
 
@@ -14,6 +15,10 @@ object NetworkModule {
     @Provides @Singleton
     fun ProvideLoggingInterceptor(): HttpLoggingInterceptor=
         HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = if(BuildConfig.DEBUG){
+                HttpLoggingInterceptor.Level.BODY
+            }else{
+                HttpLoggingInterceptor.Level.NONE
+            }
         }
 }
